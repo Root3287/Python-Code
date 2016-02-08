@@ -1,24 +1,27 @@
 # Timothy A. Gibbons
 # Cypher
 import string;
-def helper(message, shift):
-	message = message.lower()
-	secret = ""
-	for c in message.split():
-		print (c);
-		if c in "abcdefghijklmnopqrstuvwxyz":
-			num = ord(c)
-			num += shift
-			if num > ord("z"):     # wrap if necessary
-				num -= 26
-			elif num < ord("a"):
-				num += 26
-			secret = secret + chr(num)
-		else:
-			# don't modify any non-letters in the message; just add them as-is
-			secret = secret + c
-	return secret
+import re;
+def caesar(plain_text, shift):
+    cipherText = ''
+    for ch in plain_text:
+      stayInAlphabet = ord(ch) + shift
+      if ch.islower():
+        if stayInAlphabet > ord('z'):
+          stayInAlphabet -= 26
+        elif stayInAlphabet < ord('a'):
+          stayInAlphabet += 26
+      elif ch.isupper():
+        if stayInAlphabet > ord('Z'):
+          stayInAlphabet -= 26
+        elif stayInAlphabet < ord('A'):
+          stayInAlphabet += 26
+      finalLetter = chr(stayInAlphabet)
+      cipherText += finalLetter
+    #print(cipherText)
+    return cipherText
+
 def main():
 	impt = input("Enter String to be encoded: ");
 	offset = int(input("Enter offset"));
-	print(helper(impt, offset))
+	print(caesar(impt, offset))
