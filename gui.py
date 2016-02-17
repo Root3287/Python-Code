@@ -8,7 +8,7 @@ running = True;
 process =[];
 obj = [];
 def slope(x1,y1,x2,y2):
-	return ((y2-y1)/(x2-x1));
+	return (y1-y2/x1-x2)*-1;
 def distance(x1, y1, x2, y2):
 	return math.sqrt( math.pow((x1-x2),2) + math.pow((y1-y2),2) )
 def main():
@@ -33,7 +33,7 @@ def main():
 			
 			#list the help
 			elif(command[0] == "help"):
-				print(" quitquit - quit the process.\n exit - exit the window. \n square [size] - draws a square where the user clicks \n window - new window \n bullseye - draw a bullseye in the center of the screen.");
+				print(" quit - quit the process.\n exit - exit the window. \n square [size] - draws a square where the user clicks \n window - new window \n bullseye - draw a bullseye in the center of the screen.");
 				
 			#quit the current process
 			elif(command[0] == "quit"):
@@ -144,8 +144,64 @@ def main():
 					line.draw(win)
 					obj.append(line)
 			elif(command[0] == "face"):
-				oval = Oval(Point(225,126), Point(480,50))
+				p1 = win.getMouse();
+				p2 = win.getMouse();
+				oval = Oval(p1, p2);
 				oval.draw(win)
+				obj.append(win)
+
+				p3 = win.getMouse();
+				p4 = win.getMouse();
+				p3a = Point(p3.getX()-50, p3.getY()-25);
+				p3b = Point(p3.getX()+50, p3.getY()+25);
+				p3c = Point(p3.getX()+25, p3.getY()+20)
+				p3d = Point(p3.getX()-25, p3.getY()-25)
+				p4a = Point(p4.getX()-50, p4.getY()-25);
+				p4b = Point(p4.getX()+50, p4.getY()+25);
+				p4c = Point(p4.getX()+25, p4.getY()+20)
+				p4d = Point(p4.getX()-25, p4.getY()-25)
+				eye1 = Oval(p3a, p3b);
+				eye2 = Oval(p4a, p4b);
+				puple = Oval(p3c, p3d)
+				puple2= Oval(p4c, p4d)
+				eye1.draw(win)
+				eye2.draw(win)
+				puple.draw(win)
+				puple2.draw(win)
+				obj.append(puple)
+				obj.append(puple2)
+				obj.append(eye1)
+				obj.append(eye2)
+
+				p6 = win.getMouse()
+				p6a = Point(p6.getX()+50,p6.getY())
+				p6b = Point(p6.getX()+50,p6.getY()-50)
+				nose = Line(p6,p6a);
+				nose1= Line(p6,p6b)
+				nose.draw(win)
+				nose1.draw(win)
+				obj.append(nose1)
+				obj.append(nose)
+
+
+				p5 = win.getMouse()
+				mouth = Line(Point(p5.getX()+50,p5.getY()), Point(p5.getX()-50,p5.getY()))
+				mouth.draw(win)
+				obj.append(mouth)
+			elif(command[0]=="rect"):
+				p1 = win.getMouse();
+				p2 = win.getMouse();
+
+				rect = Rectangle(p1,p2);
+				length = p1.getX()+p2.getX();
+				heidth = p1.getY()+p1.getY();
+
+				area = length*heidth
+				prim = 2*(length+heidth)
+
+				print("Primiter: ",prim," Area: ", area)
+				rect.draw(win)
+				obj.append(rect)
 			elif (command[0] =="obj"):
 				if(len(command)>=2):
 					if(command[1] == "-c"):
@@ -157,3 +213,6 @@ def main():
 			else:
 				print("Invalid Syntax! Type 'help' for help.");
 main();
+'''
+	[[255, 20], [653, 463]]
+'''
